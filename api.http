@@ -14,3 +14,16 @@ Content-Type: application/json
     "name": "Product 1",
     "price": 100
 }
+
+####
+PATCH  http://localhost:3000/products/1
+Content-Type: application/json
+
+{
+    "name":"Produto Alterado",
+    "price": 50 
+}
+
+###
+DELETE  http://localhost:3000/products/1
+Content-Type: application/json
