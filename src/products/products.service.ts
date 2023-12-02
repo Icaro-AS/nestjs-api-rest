@@ -5,16 +5,14 @@ import { PrismaService } from 'src/prisma/prisma.service';
 import { NotFoundError } from 'src/errors';
 @Injectable()
 export class ProductsService {
-
-  constructor(private prismaService: PrismaService) {
-
-  }
+  constructor(private prismaService: PrismaService) {}
 
   create(createProductDto: CreateProductDto) {
     return this.prismaService.product.create({
       data: {
-        ...createProductDto,quantidade: 0
-      }
+        ...createProductDto,
+        quantidade: 0,
+      },
     });
   }
 
@@ -22,45 +20,43 @@ export class ProductsService {
     return this.prismaService.product.findMany();
   }
 
-  
-   async findOne(id: number) {
-    try{
+  async findOne(id: number) {
+    try {
       return await this.prismaService.product.findUniqueOrThrow({
-        where: {id},
+        where: { id },
       });
-    }catch(error){
-      if(error.code === 'P2025'){
-        throw new NotFoundError(`Product with ID ${id} not found`);	
+    } catch (error) {
+      if (error.code === 'P2025') {
+        throw new NotFoundError(`Product with ID ${id} not found`);
       }
-     throw error;
+      throw error;
     }
   }
 
   async update(id: number, updateProductDto: UpdateProductDto) {
-    try{
+    try {
       return await this.prismaService.product.update({
-        where: {id}, 
-        data: updateProductDto
+        where: { id },
+        data: updateProductDto,
       });
-    }catch(error){
-      if(error.code === 'P2025'){
-        throw new NotFoundError(`Product with ID ${id} not found`);	
+    } catch (error) {
+      if (error.code === 'P2025') {
+        throw new NotFoundError(`Product with ID ${id} not found`);
       }
-     throw error;
+      throw error;
     }
   }
 
   async remove(id: number) {
-    try {    
-      return await this.prismaService.product.delete(
-      {
-        where: {id}
+    try {
+      return await this.prismaService.product.delete({
+        where: { id },
       });
-    }catch(error){
-      if(error.code === 'P2025'){
-        throw new NotFoundError(`Product with ID ${id} not found`);	
+    } catch (error) {
+      if (error.code === 'P2025') {
+        throw new NotFoundError(`Product with ID ${id} not found`);
       }
-     throw error;
+      throw error;
     }
   }
 }
